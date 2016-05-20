@@ -17,7 +17,7 @@ public:
 	bool parityWordVerify(vector<unsigned char> bytes, uint32_t checksum);
 
 private:
-	uint32_t discardOverflow(uint32_t x);
+	uint32_t discardOverflow(uint32_t x, unsigned char byte);
 	uint32_t bitCount(uint32_t x);
 };
 

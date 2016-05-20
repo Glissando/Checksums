@@ -15,8 +15,8 @@ uint32_t Checksum::modularSum(vector<unsigned char> bytes)
 
 	for (uint32_t i = 0; i < bytes.size(); i++)
 	{
+		check = discardOverflow(check, bytes.at(i));
 		check += bytes.at(i);
-		check = discardOverflow(check);
 	}
 
 	return ~check + 1;
@@ -28,11 +28,11 @@ bool Checksum::modularSumVerify(vector<unsigned char> bytes, uint32_t checksum)
 
 	for (uint32_t i = 0; i < bytes.size(); i++)
 	{
+		check = discardOverflow(check, bytes.at(i));
 		check += bytes.at(i);
-		check = discardOverflow(check);
 	}
 
-	if (discardOverflow(check) + checksum == 0)
+	if (check + checksum == 0)
 	{
 		return true;
 	}
@@ -76,7 +76,7 @@ bool Checksum::parityWordVerify(vector<unsigned char> bytes, uint32_t checksum)
 
 uint32_t Checksum::bitCount(uint32_t x)
 {
-	uint32_t c;
+	uint32_t c = 0;
 	while (x != 0)
 	{
 		x &= x - 1;
@@ -85,9 +85,9 @@ uint32_t Checksum::bitCount(uint32_t x)
 	return c;
 }
 
-uint32_t Checksum::discardOverflow(uint32_t x)
+uint32_t Checksum::discardOverflow(uint32_t x, unsigned char byte)
 {
-	if (x & 0x80000000)
+	if (0xffffffff - x < byte)
 	{
 		x &= 0x7fffffff;
 	}
