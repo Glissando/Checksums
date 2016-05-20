@@ -18,6 +18,5 @@ public:
 
 private:
 	uint32_t discardOverflow(uint32_t x, unsigned char byte);
-	uint32_t bitCount(uint32_t x);
 };
 

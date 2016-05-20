@@ -16,7 +16,7 @@ int main()
 	//bool malformed = checksum.modularSumVerify(data, check);
 
 	uint32_t check = checksum.parityWord(data);
-	data.at(2) = 0x2e;
+	data.at(2) = 0xfe;
 	bool malformed = checksum.parityWordVerify(data, check);
 
 	if (malformed)

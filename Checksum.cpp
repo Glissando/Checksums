@@ -64,7 +64,7 @@ the probability of a two-bit error being undetected is 1/n.
 bool Checksum::parityWordVerify(vector<unsigned char> bytes, uint32_t checksum)
 {
 	uint32_t check = parityWord(bytes) ^ checksum;
-	if (8 - bitCount(check) == 8)
+	if (check == 0)
 	{
 		return true;
 	}
@@ -72,17 +72,6 @@ bool Checksum::parityWordVerify(vector<unsigned char> bytes, uint32_t checksum)
 	{
 		return false;
 	}
-}
-
-uint32_t Checksum::bitCount(uint32_t x)
-{
-	uint32_t c = 0;
-	while (x != 0)
-	{
-		x &= x - 1;
-		c++;
-	}
-	return c;
 }
 
 uint32_t Checksum::discardOverflow(uint32_t x, unsigned char byte)
